@@ -13,11 +13,12 @@ class PhotoCategoryTableViewCell: UITableViewCell, UICollectionViewDataSource, U
     @IBOutlet weak var categoryLabel: UILabel!
     
     var collectionCellData :NSArray!
-    
+   
     override func awakeFromNib() {
         super.awakeFromNib()
         collectionView.dataSource = self
         collectionView.delegate = self
+        
     }
 
     override func setSelected(selected: Bool, animated: Bool) {
@@ -31,19 +32,25 @@ class PhotoCategoryTableViewCell: UITableViewCell, UICollectionViewDataSource, U
     }
     
     func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return (collectionCellData != nil) ? collectionCellData.count:0
+        //return (collectionCellData != nil) ? collectionCellData.count:0
+        return 20
     }
     
     func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCellWithReuseIdentifier("PhotoCategoryCollectionCell", forIndexPath: indexPath) as! PhotoCategoryCollectionViewCell//PhotoCategoryCollectionCell
+        let cell = collectionView.dequeueReusableCellWithReuseIdentifier("PhotoCategoryCollectionCell", forIndexPath: indexPath) as! PhotoCategoryCollectionViewCell
+        //PhotoCategoryCollectionCell
         cell.backgroundColor = UIColor.blackColor()
+//        
+//        let documentsPath = NSSearchPathForDirectoriesInDomains(.DocumentDirectory, .UserDomainMask, true)[0] 
+//        
+//        let gp = collectionCellData[indexPath.row] as? GuidePost
+//        let destinationPath = documentsPath.stringByAppendingPathComponent(gp!.imageName)
+//        
+//        cell.imageView.image = UIImage(contentsOfFile: destinationPath)
         
-        let documentsPath = NSSearchPathForDirectoriesInDomains(.DocumentDirectory, .UserDomainMask, true)[0] 
+        cell.imageView.image = UIImage(named: "wall.jpg")
         
-        let gp = collectionCellData[indexPath.row] as? GuidePost
-        let destinationPath = documentsPath.stringByAppendingPathComponent(gp!.imageName)
         
-        cell.imageView.image = UIImage(contentsOfFile: destinationPath)
         
         return cell
     }

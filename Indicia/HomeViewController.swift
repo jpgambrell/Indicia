@@ -9,15 +9,21 @@
 import UIKit
 import CoreData
 
-class HomeViewController: UIViewController, UINavigationControllerDelegate, UIPopoverPresentationControllerDelegate, GuidePostDelegate {
+class HomeViewController: UIViewController, UINavigationControllerDelegate, UIPopoverPresentationControllerDelegate, UICollectionViewDelegateFlowLayout, GuidePostDelegate {
 
     @IBOutlet weak var collectionView: UICollectionView!
      var guidePostArray = [GuidePost]()
     
     
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         guidePostArray = DataModelController.sharedInstance.fetchAllGuidePosts()
+        
+        
+        
+        
 
     }
 
@@ -64,6 +70,7 @@ class HomeViewController: UIViewController, UINavigationControllerDelegate, UIPo
     
     func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return guidePostArray.count
+        //return 20
     }
     
     func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
@@ -71,11 +78,27 @@ class HomeViewController: UIViewController, UINavigationControllerDelegate, UIPo
         let gp = guidePostArray[indexPath.row] as GuidePost
        
         cell.imageView.image = gp.getImageFromData()
-     
+//        cell.imageView.image = UIImage(named: "wall.jpg")
+       
         return cell
 
     }
     
+    func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAtIndexPath indexPath: NSIndexPath) -> CGSize {
+        
+        print("Collection View Size class: \(traitCollection.horizontalSizeClass.rawValue)")
+        print("Collection View Bounds: \(collectionView.bounds)")
+        
+        
+        let numberOfColumns = (collectionView.bounds.width > 415) ? 3 : 2 as CGFloat
+        let width = collectionView.bounds.width / numberOfColumns  - 15  as CGFloat
+        
+        switch traitCollection.horizontalSizeClass {
+            case .Compact: return CGSizeMake(width, width)
+            case .Regular:  return CGSizeMake(width, width)
+            default:  return CGSizeMake(width, width)
+        }
+    }
     
     func collectionView(collectionView: UICollectionView, didDeselectItemAtIndexPath indexPath: NSIndexPath) {
         print("clicked at indexpath: \(indexPath)")
