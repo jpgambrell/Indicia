@@ -21,7 +21,7 @@
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Tags" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="FJX-Hg-PaB">
                                 <rect key="frame" x="16" y="199" width="36" height="21"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="1h0-jW-Tsb">
@@ -60,7 +60,7 @@
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Category" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5c8-h0-TsS">
                                 <rect key="frame" x="16" y="50" width="71" height="21"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Kfc-k4-66r">
@@ -101,20 +101,23 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="OWO-U6-TTW">
+                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="OWO-U6-TTW">
                                 <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                                 <subviews>
-                                    <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" image="wall.jpg" translatesAutoresizingMaskIntoConstraints="NO" id="0Kn-Gb-CX8">
+                                    <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="wall.jpg" translatesAutoresizingMaskIntoConstraints="NO" id="0Kn-Gb-CX8">
                                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                                        <color key="backgroundColor" red="1" green="0.0" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="600" id="f7i-gM-tfT"/>
+                                        </constraints>
                                     </imageView>
                                 </subviews>
                                 <constraints>
-                                    <constraint firstAttribute="centerY" secondItem="0Kn-Gb-CX8" secondAttribute="centerY" id="1Hj-J4-89r"/>
-                                    <constraint firstAttribute="trailing" secondItem="0Kn-Gb-CX8" secondAttribute="trailing" id="289-hS-JPe"/>
-                                    <constraint firstAttribute="centerX" secondItem="0Kn-Gb-CX8" secondAttribute="centerX" id="URF-d4-cvY"/>
-                                    <constraint firstAttribute="bottom" secondItem="0Kn-Gb-CX8" secondAttribute="bottom" id="e7s-EH-0vO"/>
-                                    <constraint firstItem="0Kn-Gb-CX8" firstAttribute="top" secondItem="OWO-U6-TTW" secondAttribute="top" id="qcq-Av-yfr"/>
-                                    <constraint firstItem="0Kn-Gb-CX8" firstAttribute="leading" secondItem="OWO-U6-TTW" secondAttribute="leading" id="zOi-1y-mNK"/>
+                                    <constraint firstItem="0Kn-Gb-CX8" firstAttribute="leading" secondItem="OWO-U6-TTW" secondAttribute="leading" id="B6c-WA-hml"/>
+                                    <constraint firstAttribute="bottom" secondItem="0Kn-Gb-CX8" secondAttribute="bottom" id="Nm6-J1-bSx"/>
+                                    <constraint firstAttribute="trailing" secondItem="0Kn-Gb-CX8" secondAttribute="trailing" id="QTC-Cu-1sj"/>
+                                    <constraint firstItem="0Kn-Gb-CX8" firstAttribute="top" secondItem="OWO-U6-TTW" secondAttribute="top" id="Tpb-d6-hYr"/>
+                                    <constraint firstItem="0Kn-Gb-CX8" firstAttribute="centerX" secondItem="OWO-U6-TTW" secondAttribute="centerX" id="aXs-1E-v6l"/>
                                 </constraints>
                                 <connections>
                                     <outlet property="delegate" destination="K1d-eO-RHW" id="oxI-3N-ej6"/>
@@ -123,10 +126,10 @@
                         </subviews>
                         <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
-                            <constraint firstItem="OWO-U6-TTW" firstAttribute="top" secondItem="deE-cm-SN2" secondAttribute="topMargin" id="80k-7Q-KGU"/>
-                            <constraint firstAttribute="trailingMargin" secondItem="OWO-U6-TTW" secondAttribute="trailing" constant="-16" id="Qei-lz-hB5"/>
-                            <constraint firstItem="OWO-U6-TTW" firstAttribute="leading" secondItem="deE-cm-SN2" secondAttribute="leadingMargin" constant="-16" id="kvt-jj-Uva"/>
-                            <constraint firstItem="DW2-aE-6Qu" firstAttribute="top" secondItem="OWO-U6-TTW" secondAttribute="bottom" id="sK3-9C-eOP"/>
+                            <constraint firstItem="OWO-U6-TTW" firstAttribute="bottom" secondItem="DW2-aE-6Qu" secondAttribute="top" id="7Kz-7h-qBS"/>
+                            <constraint firstItem="OWO-U6-TTW" firstAttribute="centerX" secondItem="deE-cm-SN2" secondAttribute="centerX" id="Fvl-ZW-85h"/>
+                            <constraint firstItem="OWO-U6-TTW" firstAttribute="leading" secondItem="deE-cm-SN2" secondAttribute="leadingMargin" constant="-20" id="Ioh-B1-FTx"/>
+                            <constraint firstItem="OWO-U6-TTW" firstAttribute="top" secondItem="deE-cm-SN2" secondAttribute="top" id="deX-SX-rHw"/>
                         </constraints>
                     </view>
                     <connections>

@@ -55,7 +55,9 @@ class GuidePostViewController: UIViewController,UIScrollViewDelegate, UINavigati
         super.viewDidLoad()
         scrollView.minimumZoomScale = 1.0
         scrollView.maximumZoomScale = 3.0
-        scrollView.contentSize = CGSizeMake(1280, 960)
+        
+        let frame = imageView.frame
+        scrollView.contentSize = CGSizeMake(frame.height, frame.width)
         
         let doubleTapRecognizer = UITapGestureRecognizer(target: self, action: "scrollViewDoubleTapped:")
                     doubleTapRecognizer.numberOfTapsRequired = 2
