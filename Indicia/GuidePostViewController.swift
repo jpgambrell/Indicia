@@ -1,15 +1,6 @@
-//
-//  GuidePostViewController.swift
-//  Indicia
-//
-//  Created by Gambrell, John on 2/12/15.
-//  Copyright (c) 2015 Gambrell, John. All rights reserved.
-//
 
 import UIKit
 import CoreData
-
-
 
 
 class GuidePostViewController: UIViewController,UIScrollViewDelegate, UINavigationControllerDelegate{
@@ -21,15 +12,9 @@ class GuidePostViewController: UIViewController,UIScrollViewDelegate, UINavigati
     var delegate:GuidePostDelegate!
     var currentZoomScale : CGFloat = 1
 
-    
-
     func scrollViewDoubleTapped(recognizer: UITapGestureRecognizer) {
-        
-        print("Before currentZoomScale \(currentZoomScale)")
         currentZoomScale = (currentZoomScale == 1) ? 2 : 1
-         print("After currentZoomScale \(currentZoomScale)")
         scrollView.setZoomScale(currentZoomScale, animated: true)
-        
     }
     
     func viewForZoomingInScrollView(scrollView: UIScrollView) -> UIView? {
@@ -48,6 +33,11 @@ class GuidePostViewController: UIViewController,UIScrollViewDelegate, UINavigati
     override func viewWillAppear(animated: Bool) {
         
         imageView.image = selectedGuidePost.getImageFromData()
+        let size = imageView.image!.size
+        let frame = CGRectMake(0, 0, size.width, size.height)
+        imageView.frame = frame
+        
+        scrollView.contentSize = CGSizeMake(size.height, size.width)
 
     }
     
@@ -56,26 +46,15 @@ class GuidePostViewController: UIViewController,UIScrollViewDelegate, UINavigati
         scrollView.minimumZoomScale = 1.0
         scrollView.maximumZoomScale = 3.0
         
-        let frame = imageView.frame
-        scrollView.contentSize = CGSizeMake(frame.height, frame.width)
-        
         let doubleTapRecognizer = UITapGestureRecognizer(target: self, action: "scrollViewDoubleTapped:")
                     doubleTapRecognizer.numberOfTapsRequired = 2
                     doubleTapRecognizer.numberOfTouchesRequired = 1
                     scrollView.addGestureRecognizer(doubleTapRecognizer)
-
     }
-   
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
     }
-
-  
-    
-
-   
 }
 
 
