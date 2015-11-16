@@ -14,16 +14,10 @@ class HomeViewController: UIViewController, UINavigationControllerDelegate, UIPo
     @IBOutlet weak var collectionView: UICollectionView!
      var guidePostArray = [GuidePost]()
     
-    
-    
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
         guidePostArray = DataModelController.sharedInstance.fetchAllGuidePosts()
-        
-        
-        
-        
 
     }
 

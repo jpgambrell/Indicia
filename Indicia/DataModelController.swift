@@ -8,6 +8,20 @@
 
 import UIKit
 import CoreData
+import CoreLocation
+
+struct GuidePostStruct {
+    let imageName : String
+    let type : Int
+    let tags :String
+    let location : CLLocation
+    let date : NSDate
+   }
+
+enum CDResponse {
+    case Success
+    case Error
+}
 
 class DataModelController: NSObject {
     
@@ -137,8 +151,7 @@ class DataModelController: NSObject {
     
     func fetchAllGuidePosts() -> [GuidePost] {
         let fetchRequest = NSFetchRequest(entityName: "GuidePost")
-        
-      //  var error: NSError?
+
         do {
         let fetchedResults =  try managedObjectContext!.executeFetchRequest(fetchRequest) as? [GuidePost]
         
@@ -148,12 +161,36 @@ class DataModelController: NSObject {
         }
         catch{
             print("Error on Fetch All GPs")
-            
-
-            
         }
     return []
     }
     
+    //Mark: App DB funcs
+    
+    func insertGuidepost(inGP : GuidePostStruct) -> CDResponse{
+        
+       // let managedContext = DataModelController.sharedInstance.managedObjectContext!
+        
+        let entity = NSEntityDescription.entityForName("GuidePost", inManagedObjectContext: managedObjectContext!)
+        
+        let gp = GuidePost(entity: entity!, insertIntoManagedObjectContext: managedObjectContext)
+        
+        gp.imageName = inGP.imageName
+        gp.type = inGP.type
+        gp.tags = inGP.tags
+        gp.latitiude = inGP.location.coordinate.latitude
+        gp.longitude = inGP.location.coordinate.longitude
+        gp.date = NSDate()
+        
+        do {
+            try managedObjectContext!.save()
+            return .Success
+           
+        } catch let error as NSError {
+            print("CD Save Error: \(error.description)")
+            return .Error
+        }
+
+    }
     
 }
