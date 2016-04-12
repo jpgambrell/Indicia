@@ -1,13 +1,18 @@
 
 import UIKit
 import CoreData
+import MapKit
 
 
 class GuidePostViewController: UIViewController,UIScrollViewDelegate, UINavigationControllerDelegate{
     @IBOutlet weak var scrollView: UIScrollView!
     @IBOutlet weak var imageView: UIImageView!
     
-    var selectedGuidePost : GuidePost!
+    @IBOutlet weak var mapView: MKMapView!
+    @IBOutlet weak var metaDataView: UIView!
+    @IBOutlet weak var metaDataViewTopContraint: NSLayoutConstraint!
+   
+        var selectedGuidePost : GuidePost!
     
     var delegate:GuidePostDelegate!
     var currentZoomScale : CGFloat = 1
@@ -15,8 +20,16 @@ class GuidePostViewController: UIViewController,UIScrollViewDelegate, UINavigati
     func scrollViewDoubleTapped(recognizer: UITapGestureRecognizer) {
         currentZoomScale = (currentZoomScale == 1) ? 2 : 1
         scrollView.setZoomScale(currentZoomScale, animated: true)
-    }
+
+      }
     
+//    @IBAction func buttonClick(sender: AnyObject) {
+//        UIView.animateWithDuration(0.3,delay: 0.0,
+//            options: .CurveEaseInOut, animations: { () -> Void in
+//                self.metadataViewHeightConstraint.constant = 223
+//            }, completion: nil)
+//
+//    }
     func viewForZoomingInScrollView(scrollView: UIScrollView) -> UIView? {
         return imageView
     }
@@ -41,9 +54,32 @@ class GuidePostViewController: UIViewController,UIScrollViewDelegate, UINavigati
 
     }
     
+    override func viewDidAppear(animated: Bool) {
+//        UIView.animateWithDuration(1.8,delay: 0,
+//            options: UIViewAnimationOptions.CurveEaseInOut, animations: { () -> Void in
+//                self.metaDataViewTopContraint.constant = 377
+//        
+//            }, completion: nil)
+        
+   //     self.metaDataViewTopContraint.constant = 377
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        scrollView.minimumZoomScale = 1.0
+        
+        let coord = CLLocationCoordinate2DMake(selectedGuidePost.latitiude as CLLocationDegrees, selectedGuidePost.longitude as CLLocationDegrees)
+        mapView.centerCoordinate = coord
+        
+        let region = MKCoordinateRegionMakeWithDistance(
+           mapView.centerCoordinate, 1000, 1000)
+        
+        mapView.setRegion(region, animated: true)
+        
+        
+        
+        
+       // metaDataViewTopContraint.constant = self.view.frame.height
+               scrollView.minimumZoomScale = 1.0
         scrollView.maximumZoomScale = 3.0
         
         let doubleTapRecognizer = UITapGestureRecognizer(target: self, action: "scrollViewDoubleTapped:")

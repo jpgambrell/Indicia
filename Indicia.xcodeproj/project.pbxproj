@@ -51,6 +51,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		011AFBAE1C4042B400C15968 /* Indicia.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = Indicia.entitlements; sourceTree = "<group>"; };
 		015967F81BD995CF002AF638 /* Indicia.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Indicia.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		0159680C1BD995CF002AF638 /* IndiciaTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = IndiciaTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		015968101BD995CF002AF638 /* IndiciaTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IndiciaTests.swift; sourceTree = "<group>"; };
@@ -130,6 +131,7 @@
 		015967FA1BD995CF002AF638 /* Indicia */ = {
 			isa = PBXGroup;
 			children = (
+				011AFBAE1C4042B400C15968 /* Indicia.entitlements */,
 				0159682A1BD996B1002AF638 /* AppDelegate.swift */,
 				0159682D1BD996B1002AF638 /* DataModelController.swift */,
 				0159682F1BD996B1002AF638 /* GlobalConstants.swift */,
@@ -247,6 +249,9 @@
 						SystemCapabilities = {
 							com.apple.Push = {
 								enabled = 0;
+							};
+							com.apple.iCloud = {
+								enabled = 1;
 							};
 						};
 					};
@@ -454,6 +459,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_ENTITLEMENTS = Indicia/Indicia.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				INFOPLIST_FILE = Indicia/Info.plist;
@@ -471,6 +477,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_ENTITLEMENTS = Indicia/Indicia.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				INFOPLIST_FILE = Indicia/Info.plist;

@@ -130,17 +130,33 @@
                                     <outlet property="delegate" destination="K1d-eO-RHW" id="oxI-3N-ej6"/>
                                 </connections>
                             </scrollView>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="g8N-nS-cIt">
+                                <rect key="frame" x="0.0" y="475" width="600" height="125"/>
+                                <subviews>
+                                    <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="3O9-6M-9w5">
+                                        <rect key="frame" x="0.0" y="-98" width="600" height="223"/>
+                                    </mapView>
+                                </subviews>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
+                            <constraint firstAttribute="trailingMargin" secondItem="g8N-nS-cIt" secondAttribute="trailing" constant="-20" id="1Fz-pt-kUU"/>
+                            <constraint firstItem="g8N-nS-cIt" firstAttribute="top" secondItem="hJU-Px-ctJ" secondAttribute="bottom" constant="411" id="1eJ-LA-Ihn"/>
                             <constraint firstItem="OWO-U6-TTW" firstAttribute="bottom" secondItem="DW2-aE-6Qu" secondAttribute="top" id="7Kz-7h-qBS"/>
+                            <constraint firstItem="DW2-aE-6Qu" firstAttribute="top" secondItem="g8N-nS-cIt" secondAttribute="bottom" id="BhY-f4-GLY"/>
                             <constraint firstItem="OWO-U6-TTW" firstAttribute="centerX" secondItem="deE-cm-SN2" secondAttribute="centerX" id="Fvl-ZW-85h"/>
                             <constraint firstItem="OWO-U6-TTW" firstAttribute="leading" secondItem="deE-cm-SN2" secondAttribute="leadingMargin" constant="-20" id="Ioh-B1-FTx"/>
                             <constraint firstItem="OWO-U6-TTW" firstAttribute="top" secondItem="deE-cm-SN2" secondAttribute="top" id="deX-SX-rHw"/>
+                            <constraint firstItem="g8N-nS-cIt" firstAttribute="leading" secondItem="deE-cm-SN2" secondAttribute="leadingMargin" constant="-20" id="jIB-6Q-7dP"/>
                         </constraints>
                     </view>
                     <connections>
                         <outlet property="imageView" destination="0Kn-Gb-CX8" id="rra-Fq-k0g"/>
+                        <outlet property="mapView" destination="3O9-6M-9w5" id="Bib-rf-ud2"/>
+                        <outlet property="metaDataView" destination="g8N-nS-cIt" id="Etd-4p-vbJ"/>
+                        <outlet property="metaDataViewTopContraint" destination="1eJ-LA-Ihn" id="brD-pV-DKp"/>
                         <outlet property="scrollView" destination="OWO-U6-TTW" id="rbB-UA-c5T"/>
                     </connections>
                 </viewController>
