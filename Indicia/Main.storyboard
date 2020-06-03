@@ -1,9 +1,9 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9059" systemVersion="14F1021" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="6tF-gC-6VM">
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="16097" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="6tF-gC-6VM">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
-        <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9049"/>
-        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16087"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
         <!--Guide Post Pop Over View Controller-->
@@ -20,26 +20,30 @@
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Tags" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="FJX-Hg-PaB">
                                 <rect key="frame" x="16" y="199" width="50" height="21"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="1h0-jW-Tsb">
                                 <rect key="frame" x="150" y="110" width="77" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" title="Take Photo">
-                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                    <color key="titleShadowColor" red="0.5" green="0.5" blue="0.5" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 </state>
                                 <connections>
-                                    <action selector="takePhotoPressed:" destination="WGR-Iq-9OO" eventType="touchUpInside" id="qlb-w5-lmA"/>
+                                    <action selector="takePhotoPressedWithSender:" destination="WGR-Iq-9OO" eventType="touchUpInside" id="a8L-sz-b68"/>
                                 </connections>
                             </button>
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="keywords to search for" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="wmS-4P-KWL">
                                 <rect key="frame" x="74" y="195" width="210" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
                             <segmentedControl opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="pwk-cP-6UP">
                                 <rect key="frame" x="103" y="47" width="153" height="29"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <segments>
                                     <segment title="Document"/>
                                     <segment title="Location"/>
@@ -47,40 +51,45 @@
                             </segmentedControl>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="nbm-uF-Rt0">
                                 <rect key="frame" x="150" y="135" width="93" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" title="Photo Library">
-                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                    <color key="titleShadowColor" red="0.5" green="0.5" blue="0.5" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 </state>
                                 <connections>
-                                    <action selector="choosePhotoButtonPressed:" destination="WGR-Iq-9OO" eventType="touchUpInside" id="Osu-Em-UHK"/>
+                                    <action selector="choosePhotoButtonPressedWithSender:" destination="WGR-Iq-9OO" eventType="touchUpInside" id="mW1-Lz-GRr"/>
                                 </connections>
                             </button>
                             <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="default-placeholder.png" translatesAutoresizingMaskIntoConstraints="NO" id="dWW-I8-OP1">
                                 <rect key="frame" x="74" y="110" width="63" height="55"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             </imageView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Category" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5c8-h0-TsS">
                                 <rect key="frame" x="16" y="50" width="71" height="21"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Kfc-k4-66r">
                                 <rect key="frame" x="103" y="237" width="34" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" title="Save">
-                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                    <color key="titleShadowColor" red="0.5" green="0.5" blue="0.5" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 </state>
                                 <connections>
-                                    <action selector="doneButtonPressed:" destination="WGR-Iq-9OO" eventType="touchUpInside" id="jRA-r8-Gy1"/>
+                                    <action selector="doneButtonPressedWithSender:" destination="WGR-Iq-9OO" eventType="touchUpInside" id="zHM-Yo-amI"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cCx-Ez-CVL">
                                 <rect key="frame" x="179" y="237" width="48" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" title="Cancel"/>
                                 <connections>
-                                    <action selector="cancelButtonPressed:" destination="WGR-Iq-9OO" eventType="touchUpInside" id="lej-g9-Ji2"/>
+                                    <action selector="cancelButtonPressedWithSender:" destination="WGR-Iq-9OO" eventType="touchUpInside" id="XC2-Z0-1Wg"/>
                                 </connections>
                             </button>
                         </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     </view>
                     <value key="contentSizeForViewInPopover" type="size" width="300" height="275"/>
                     <nil key="simulatedStatusBarMetrics"/>
@@ -105,20 +114,20 @@
                         <viewControllerLayoutGuide type="bottom" id="DW2-aE-6Qu"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="deE-cm-SN2">
-                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="OWO-U6-TTW">
-                                <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                                <rect key="frame" x="0.0" y="0.0" width="414" height="862"/>
                                 <subviews>
                                     <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="wall.jpg" translatesAutoresizingMaskIntoConstraints="NO" id="0Kn-Gb-CX8">
-                                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="414" height="600"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="600" id="f7i-gM-tfT"/>
                                         </constraints>
                                     </imageView>
                                 </subviews>
-                                <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                <color key="backgroundColor" red="0.66666668653488159" green="0.66666668653488159" blue="0.66666668653488159" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
                                     <constraint firstItem="0Kn-Gb-CX8" firstAttribute="leading" secondItem="OWO-U6-TTW" secondAttribute="leading" id="B6c-WA-hml"/>
                                     <constraint firstAttribute="bottom" secondItem="0Kn-Gb-CX8" secondAttribute="bottom" id="Nm6-J1-bSx"/>
@@ -130,17 +139,18 @@
                                     <outlet property="delegate" destination="K1d-eO-RHW" id="oxI-3N-ej6"/>
                                 </connections>
                             </scrollView>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="g8N-nS-cIt">
+                            <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="g8N-nS-cIt">
                                 <rect key="frame" x="0.0" y="475" width="600" height="125"/>
                                 <subviews>
                                     <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="3O9-6M-9w5">
                                         <rect key="frame" x="0.0" y="-98" width="600" height="223"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                     </mapView>
                                 </subviews>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             </view>
                         </subviews>
-                        <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                        <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstAttribute="trailingMargin" secondItem="g8N-nS-cIt" secondAttribute="trailing" constant="-20" id="1Fz-pt-kUU"/>
                             <constraint firstItem="g8N-nS-cIt" firstAttribute="top" secondItem="hJU-Px-ctJ" secondAttribute="bottom" constant="411" id="1eJ-LA-Ihn"/>
@@ -170,7 +180,7 @@
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="6tF-gC-6VM" sceneMemberID="viewController">
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="Lxd-CI-ZID">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                        <rect key="frame" x="0.0" y="44" width="414" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <nil name="viewControllers"/>
@@ -191,10 +201,10 @@
                         <viewControllerLayoutGuide type="bottom" id="c8m-Qc-BYa"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="zYm-w0-m6T">
-                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="WIA-Ok-sEv">
+                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" misplaced="YES" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="WIA-Ok-sEv">
                                 <rect key="frame" x="0.0" y="64" width="601" height="556"/>
                                 <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="0.0" id="Sk6-MH-uob">
                                     <size key="itemSize" width="185" height="185"/>
@@ -204,7 +214,7 @@
                                 </collectionViewFlowLayout>
                                 <cells>
                                     <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" reuseIdentifier="PhotoCategoryCollectionCell" id="HeQ-oU-FHW" customClass="PhotoCategoryCollectionViewCell" customModule="Indicia" customModuleProvider="target">
-                                        <rect key="frame" x="10" y="64" width="185" height="185"/>
+                                        <rect key="frame" x="10" y="0.0" width="185" height="185"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
                                             <rect key="frame" x="0.0" y="0.0" width="185" height="185"/>
@@ -214,9 +224,8 @@
                                                     <rect key="frame" x="0.0" y="0.0" width="185" height="185"/>
                                                 </imageView>
                                             </subviews>
-                                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                         </view>
-                                        <color key="backgroundColor" red="0.79215693470000004" green="0.043137256059999997" blue="0.082352943720000002" alpha="1" colorSpace="deviceRGB"/>
+                                        <color key="backgroundColor" red="0.73592603206634521" green="0.0" blue="0.070624701678752899" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <constraints>
                                             <constraint firstItem="NQU-yh-Jk2" firstAttribute="centerX" secondItem="HeQ-oU-FHW" secondAttribute="centerX" id="g7m-VR-dEi"/>
                                             <constraint firstItem="NQU-yh-Jk2" firstAttribute="top" secondItem="HeQ-oU-FHW" secondAttribute="topMargin" constant="-8" id="hlo-4w-IPQ"/>
@@ -235,7 +244,7 @@
                                 </connections>
                             </collectionView>
                         </subviews>
-                        <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstAttribute="bottomMargin" secondItem="WIA-Ok-sEv" secondAttribute="bottom" constant="-20" id="UZV-E0-p8m"/>
                             <constraint firstAttribute="trailingMargin" secondItem="WIA-Ok-sEv" secondAttribute="trailing" constant="-21" id="qqI-KF-aFL"/>
@@ -262,7 +271,7 @@
         </scene>
     </scenes>
     <resources>
-        <image name="default-placeholder.png" width="100" height="112"/>
+        <image name="default-placeholder.png" width="100" height="112.5"/>
         <image name="wall.jpg" width="640" height="1136"/>
     </resources>
 </document>

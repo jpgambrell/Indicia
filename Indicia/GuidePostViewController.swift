@@ -17,11 +17,7 @@ class GuidePostViewController: UIViewController,UIScrollViewDelegate, UINavigati
     var delegate:GuidePostDelegate!
     var currentZoomScale : CGFloat = 1
 
-    func scrollViewDoubleTapped(recognizer: UITapGestureRecognizer) {
-        currentZoomScale = (currentZoomScale == 1) ? 2 : 1
-        scrollView.setZoomScale(currentZoomScale, animated: true)
-
-      }
+  
     
 //    @IBAction func buttonClick(sender: AnyObject) {
 //        UIView.animateWithDuration(0.3,delay: 0.0,
@@ -34,27 +30,27 @@ class GuidePostViewController: UIViewController,UIScrollViewDelegate, UINavigati
         return imageView
     }
     
-    func scrollViewDidZoom(scrollView: UIScrollView) {
+    func scrollViewDidZoom(_ scrollView: UIScrollView) {
         currentZoomScale = 2
     }
     
     
-    func scrollViewDidEndZooming(scrollView: UIScrollView, withView view: UIView?, atScale scale: CGFloat) {
+    func scrollViewDidEndZooming(_ scrollView: UIScrollView, with view: UIView?, atScale scale: CGFloat) {
         currentZoomScale = scale
     }
 
-    override func viewWillAppear(animated: Bool) {
+    override func viewWillAppear(_ animated: Bool) {
         
         imageView.image = selectedGuidePost.getImageFromData()
         let size = imageView.image!.size
-        let frame = CGRectMake(0, 0, size.width, size.height)
+        let frame = CGRect(x: 0, y: 0, width: size.width, height: size.height)
         imageView.frame = frame
         
-        scrollView.contentSize = CGSizeMake(size.height, size.width)
+        scrollView.contentSize = CGSize(width: size.height, height: size.width)
 
     }
     
-    override func viewDidAppear(animated: Bool) {
+    override func viewDidAppear(_ animated: Bool) {
 //        UIView.animateWithDuration(1.8,delay: 0,
 //            options: UIViewAnimationOptions.CurveEaseInOut, animations: { () -> Void in
 //                self.metaDataViewTopContraint.constant = 377
@@ -67,11 +63,11 @@ class GuidePostViewController: UIViewController,UIScrollViewDelegate, UINavigati
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        let coord = CLLocationCoordinate2DMake(selectedGuidePost.latitiude as CLLocationDegrees, selectedGuidePost.longitude as CLLocationDegrees)
+        let coord = CLLocationCoordinate2DMake(selectedGuidePost.latitiude as! CLLocationDegrees, selectedGuidePost.longitude as! CLLocationDegrees)
         mapView.centerCoordinate = coord
         
-        let region = MKCoordinateRegionMakeWithDistance(
-           mapView.centerCoordinate, 1000, 1000)
+        let region = MKCoordinateRegion(
+            center: mapView.centerCoordinate, latitudinalMeters: 1000, longitudinalMeters: 1000)
         
         mapView.setRegion(region, animated: true)
         
@@ -82,11 +78,19 @@ class GuidePostViewController: UIViewController,UIScrollViewDelegate, UINavigati
                scrollView.minimumZoomScale = 1.0
         scrollView.maximumZoomScale = 3.0
         
-        let doubleTapRecognizer = UITapGestureRecognizer(target: self, action: "scrollViewDoubleTapped:")
+        
+        let doubleTapRecognizer = UITapGestureRecognizer(target: self, action: #selector(scrollViewDoubleTapped))
+        
+        //let doubleTapRecognizer = UITapGestureRecognizer(target: self, action: Selector("scrollViewDoubleTapped:"))
                     doubleTapRecognizer.numberOfTapsRequired = 2
                     doubleTapRecognizer.numberOfTouchesRequired = 1
                     scrollView.addGestureRecognizer(doubleTapRecognizer)
     }
+    @objc func scrollViewDoubleTapped() {
+           currentZoomScale = (currentZoomScale == 1) ? 2 : 1
+           scrollView.setZoomScale(currentZoomScale, animated: true)
+
+         }
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()

@@ -21,14 +21,14 @@ class GuidePost: NSManagedObject {
     @NSManaged var type: NSNumber
     
     func getImageFromData()-> UIImage{
-        let documentsPath = NSSearchPathForDirectoriesInDomains(.DocumentDirectory, .UserDomainMask, true)[0] 
+        let documentsPath = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)[0]
   
        // let destinationPath = documentsPath.stringByAppendingPathComponent(imageName)
         
-        let destinationPath = NSURL(fileURLWithPath: documentsPath).URLByAppendingPathComponent(imageName)
+        guard let destinationPath = NSURL(fileURLWithPath: documentsPath).appendingPathComponent(imageName) else { return UIImage() }
 
       
-        if let imageFromFile = UIImage(data: NSData(contentsOfURL: destinationPath)!){
+        if let imageFromFile = UIImage(data: NSData(contentsOf: destinationPath)! as Data){
             return imageFromFile
         }
         
@@ -41,6 +41,6 @@ extension String{
         
         let nsSt = self as NSString
         
-        return nsSt.stringByAppendingPathComponent(path)
+        return nsSt.appendingPathComponent(path)
     }
 }

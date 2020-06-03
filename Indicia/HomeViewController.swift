@@ -9,7 +9,7 @@
 import UIKit
 import CoreData
 
-class HomeViewController: UIViewController, UINavigationControllerDelegate, UIPopoverPresentationControllerDelegate, UICollectionViewDelegateFlowLayout, GuidePostDelegate {
+class HomeViewController: UIViewController, UINavigationControllerDelegate, UIPopoverPresentationControllerDelegate, UICollectionViewDelegateFlowLayout, UICollectionViewDataSource, GuidePostDelegate {
 
     @IBOutlet weak var collectionView: UICollectionView!
      var guidePostArray = [GuidePost]()
@@ -31,29 +31,31 @@ class HomeViewController: UIViewController, UINavigationControllerDelegate, UIPo
     // MARK: - Navigation
 
     // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        if (segue.identifier == "gpPopOverSegue"){
-            let gpPopOverVC = segue.destinationViewController as! GuidePostPopOverViewController
-            gpPopOverVC.modalPresentationStyle = UIModalPresentationStyle.Popover
-            gpPopOverVC.popoverPresentationController!.delegate = self
-            gpPopOverVC.delegate = self;
-        }
-        
-      
-        if (segue.identifier == "gpDetailSegue"){
-            let   gpDetailVC = segue.destinationViewController as! GuidePostViewController
-                  gpDetailVC.delegate = self;
-        
-            let iPath = collectionView.indexPathForCell(sender as! PhotoCategoryCollectionViewCell)
-            gpDetailVC.selectedGuidePost = guidePostArray[iPath!.row]
-        }
-        
+    
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+         if (segue.identifier == "gpPopOverSegue"){
+            let gpPopOverVC = segue.destination as! GuidePostPopOverViewController
+            gpPopOverVC.modalPresentationStyle = UIModalPresentationStyle.popover
+                   gpPopOverVC.popoverPresentationController!.delegate = self
+                   gpPopOverVC.delegate = self;
+               }
+               
+             
+               if (segue.identifier == "gpDetailSegue"){
+                let   gpDetailVC = segue.destination as! GuidePostViewController
+                         gpDetailVC.delegate = self;
+               
+                let iPath = collectionView.indexPath(for: sender as! PhotoCategoryCollectionViewCell)
+                   gpDetailVC.selectedGuidePost = guidePostArray[iPath!.row]
+               }
     }
+   
 
     func adaptivePresentationStyleForPresentationController(controller: UIPresentationController, traitCollection: UITraitCollection) -> UIModalPresentationStyle {
-        return UIModalPresentationStyle.None
+        return UIModalPresentationStyle.none
     }
-    func popoverPresentationControllerShouldDismissPopover(popoverPresentationController: UIPopoverPresentationController) -> Bool {
+    func popoverPresentationControllerShouldDismissPopover(_ popoverPresentationController: UIPopoverPresentationController) -> Bool {
         return false
     }
     // MARK: - CollectionView Methods
@@ -62,13 +64,14 @@ class HomeViewController: UIViewController, UINavigationControllerDelegate, UIPo
         return 1
     }
     
-    func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return guidePostArray.count
         //return 20
     }
     
-    func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCellWithReuseIdentifier("PhotoCategoryCollectionCell", forIndexPath: indexPath) as! PhotoCategoryCollectionViewCell
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "PhotoCategoryCollectionCell", for: indexPath as IndexPath) as! PhotoCategoryCollectionViewCell
         let gp = guidePostArray[indexPath.row] as GuidePost
        
         cell.imageView.image = gp.getImageFromData()
@@ -77,27 +80,26 @@ class HomeViewController: UIViewController, UINavigationControllerDelegate, UIPo
         return cell
 
     }
-    
-    func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAtIndexPath indexPath: NSIndexPath) -> CGSize {
-        
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         print("Collection View Size class: \(traitCollection.horizontalSizeClass.rawValue)")
-        print("Collection View Bounds: \(collectionView.bounds)")
-        
-        
-        let numberOfColumns = (collectionView.bounds.width > 415) ? 3 : 2 as CGFloat
-        let width = collectionView.bounds.width / numberOfColumns  - 15  as CGFloat
-        
-        switch traitCollection.horizontalSizeClass {
-            case .Compact: return CGSizeMake(width, width)
-            case .Regular:  return CGSizeMake(width, width)
-            default:  return CGSizeMake(width, width)
-        }
+           print("Collection View Bounds: \(collectionView.bounds)")
+           
+           
+           let numberOfColumns = (collectionView.bounds.width > 415) ? 3 : 2 as CGFloat
+           let width = collectionView.bounds.width / numberOfColumns  - 15  as CGFloat
+           
+           switch traitCollection.horizontalSizeClass {
+           case .compact: return CGSize(width: width, height: width)
+           case .regular:  return CGSize(width: width, height: width)
+           default:  return CGSize(width: width, height: width)
+           }
     }
     
-    func collectionView(collectionView: UICollectionView, didDeselectItemAtIndexPath indexPath: NSIndexPath) {
-        print("clicked at indexpath: \(indexPath)")
 
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+          print("clicked at indexpath: \(indexPath)")
     }
+    
 
     
      // MARK: - GuidePost Delegate Methods

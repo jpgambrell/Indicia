@@ -42,27 +42,27 @@ class DataModelController: NSObject {
     // MARK: - Core Data stack
     
     lazy var applicationDocumentsDirectory: NSURL = {
-        let urls = NSFileManager.defaultManager().URLsForDirectory(.DocumentDirectory, inDomains: .UserDomainMask)
-        return urls[urls.count-1] 
+        let urls = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)
+        return urls[urls.count-1] as NSURL
         }()
     
     lazy var managedObjectModel: NSManagedObjectModel = {
         // The managed object model for the application. This property is not optional. It is a fatal error for the application not to be able to find and load its model.
-        let modelURL = NSBundle.mainBundle().URLForResource("IndiciaModel", withExtension: "momd")!
+        let modelURL = Bundle.main.url(forResource: "IndiciaModel", withExtension: "momd")!
         
-        return NSManagedObjectModel(contentsOfURL: modelURL)!
+        return NSManagedObjectModel(contentsOf: modelURL)!
         }()
     
     lazy var persistentStoreCoordinator: NSPersistentStoreCoordinator? = {
         
         // Create the coordinator and store
         var coordinator: NSPersistentStoreCoordinator? = NSPersistentStoreCoordinator(managedObjectModel: self.managedObjectModel)
-        let url = self.applicationDocumentsDirectory.URLByAppendingPathComponent("IndiciaModel.sqlite")
-        print(url)
+        let url = self.applicationDocumentsDirectory.appendingPathComponent("IndiciaModel.sqlite")
+        print(url as Any)
         var error: NSError? = nil
         var failureReason = "There was an error creating or loading the application's saved data."
         do {
-            try coordinator!.addPersistentStoreWithType(NSSQLiteStoreType, configuration: nil, URL: url, options: nil)
+            try coordinator!.addPersistentStore(ofType: NSSQLiteStoreType, configurationName: nil, at: url, options: nil)
         } catch var error1 as NSError {
             error = error1
             coordinator = nil
@@ -90,7 +90,7 @@ class DataModelController: NSObject {
         if coordinator == nil {
             return nil
         }
-        var managedObjectContext = NSManagedObjectContext(concurrencyType: .PrivateQueueConcurrencyType)
+        var managedObjectContext = NSManagedObjectContext(concurrencyType: .privateQueueConcurrencyType)
         managedObjectContext.persistentStoreCoordinator = coordinator
         return managedObjectContext
         }()
@@ -107,7 +107,7 @@ class DataModelController: NSObject {
                     error = error1
                     // Replace this implementation with code to handle the error appropriately.
                     // abort() causes the application to generate a crash log and terminate. You should not use this function in a shipping application, although it may be useful during development.
-                    NSLog("Unresolved error \(error), \(error!.userInfo)")
+                    NSLog("Unresolved error \(String(describing: error)), \(error!.userInfo)")
                     abort()
                 }
             }
@@ -117,8 +117,8 @@ class DataModelController: NSObject {
     func fetchGuidePostsForCollectionView()->NSArray {
         let fetchGPArray:NSMutableArray = [["sectionTitle":"Recent", "collectionData" : fetchAllGuidePosts()]]
 
-         fetchGPArray.addObject(["sectionTitle":"Documents", "collectionData" : fetchGuidePostByType(.Document)] as NSDictionary)
-         fetchGPArray.addObject(["sectionTitle":"Locations", "collectionData" : fetchGuidePostByType(.Location)] as NSDictionary)
+        fetchGPArray.add(["sectionTitle":"Documents", "collectionData" : fetchGuidePostByType(gtype: .Document)] as NSDictionary)
+        fetchGPArray.add(["sectionTitle":"Locations", "collectionData" : fetchGuidePostByType(gtype: .Location)] as NSDictionary)
         
         return fetchGPArray
     }
@@ -128,10 +128,10 @@ class DataModelController: NSObject {
         do {
             
        
-        let fetchRequest = NSFetchRequest(entityName: "GuidePost")
+            let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "GuidePost")
         fetchRequest.predicate = NSPredicate(format: "type = %i", gtype.rawValue)
         
-        let fetchedResults = try managedObjectContext!.executeFetchRequest(fetchRequest) as? [GuidePost]
+            let fetchedResults = try managedObjectContext!.fetch(fetchRequest) as? [GuidePost]
         
         if let results = fetchedResults{
             return results
@@ -150,10 +150,10 @@ class DataModelController: NSObject {
    
     
     func fetchAllGuidePosts() -> [GuidePost] {
-        let fetchRequest = NSFetchRequest(entityName: "GuidePost")
+        let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "GuidePost")
 
         do {
-        let fetchedResults =  try managedObjectContext!.executeFetchRequest(fetchRequest) as? [GuidePost]
+            let fetchedResults =  try managedObjectContext!.fetch(fetchRequest) as? [GuidePost]
         
         if let results = fetchedResults{
             return results
@@ -171,15 +171,15 @@ class DataModelController: NSObject {
         
        // let managedContext = DataModelController.sharedInstance.managedObjectContext!
         
-        let entity = NSEntityDescription.entityForName("GuidePost", inManagedObjectContext: managedObjectContext!)
+        let entity = NSEntityDescription.entity(forEntityName: "GuidePost", in: managedObjectContext!)
         
-        let gp = GuidePost(entity: entity!, insertIntoManagedObjectContext: managedObjectContext)
+        let gp = GuidePost(entity: entity!, insertInto: managedObjectContext)
         
         gp.imageName = inGP.imageName
-        gp.type = inGP.type
+        gp.type = NSNumber(value: inGP.type)
         gp.tags = inGP.tags
-        gp.latitiude = inGP.location.coordinate.latitude
-        gp.longitude = inGP.location.coordinate.longitude
+        gp.latitiude = NSNumber(value: inGP.location.coordinate.latitude)
+        gp.longitude = NSNumber(value: inGP.location.coordinate.longitude)
         gp.date = NSDate()
         
         do {

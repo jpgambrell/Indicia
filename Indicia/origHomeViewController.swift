@@ -29,15 +29,24 @@ class origHomeViewController: UITableViewController,UINavigationControllerDelega
 
     }
 
-    
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        if (segue.identifier == "gpPopOverSegue"){
-            let gpPopOverVC = segue.destinationViewController as! GuidePostPopOverViewController
-            gpPopOverVC.modalPresentationStyle = UIModalPresentationStyle.Popover
-            gpPopOverVC.popoverPresentationController!.delegate = self
-            gpPopOverVC.delegate = self;
-        }
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+         if (segue.identifier == "gpPopOverSegue"){
+                   let gpPopOverVC = segue.destination as! GuidePostPopOverViewController
+                   gpPopOverVC.modalPresentationStyle = UIModalPresentationStyle.popover
+                   gpPopOverVC.popoverPresentationController!.delegate = self
+                   gpPopOverVC.delegate = self;
+               }
     }
+    
+    
+//    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+//        if (segue.identifier == "gpPopOverSegue"){
+//            let gpPopOverVC = segue.destination as! GuidePostPopOverViewController
+//            gpPopOverVC.modalPresentationStyle = UIModalPresentationStyle.popover
+//            gpPopOverVC.popoverPresentationController!.delegate = self
+//            gpPopOverVC.delegate = self;
+//        }
+//    }
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
@@ -45,30 +54,47 @@ class origHomeViewController: UITableViewController,UINavigationControllerDelega
     }
     
     func adaptivePresentationStyleForPresentationController(controller: UIPresentationController, traitCollection: UITraitCollection) -> UIModalPresentationStyle {
-        return UIModalPresentationStyle.None
+        return UIModalPresentationStyle.none
     }
-    func popoverPresentationControllerShouldDismissPopover(popoverPresentationController: UIPopoverPresentationController) -> Bool {
+    func popoverPresentationControllerShouldDismissPopover(_ popoverPresentationController: UIPopoverPresentationController) -> Bool {
         return false
     }
     
-    override func tableView(tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        return 0
+    
+   override func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+         return 0
     }
     
-    override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+//    override func tableView(tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+//        return 0
+//    }
+    
+    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         print("count: \(guidePostArray)")
         return guidePostArray.count
     }
-    override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCellWithIdentifier("PhotoCategoryTableCell")as! PhotoCategoryTableViewCell
+    
+    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+         let cell = tableView.dequeueReusableCell(withIdentifier: "PhotoCategoryTableCell")as! PhotoCategoryTableViewCell
 
-        let gp = guidePostArray[indexPath.row] as NSDictionary
-        cell.categoryLabel.text = gp["sectionTitle"] as? String
-        cell.collectionCellData = gp["collectionData"] as? NSArray
-        cell.collectionView.reloadData()
-        
-        return cell
+               let gp = guidePostArray[indexPath.row] as NSDictionary
+               cell.categoryLabel.text = gp["sectionTitle"] as? String
+               cell.collectionCellData = gp["collectionData"] as? NSArray
+               cell.collectionView.reloadData()
+               
+               return cell
     }
+    
+//    override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+//        let cell = tableView.dequeueReusableCell(withIdentifier: "PhotoCategoryTableCell")as! PhotoCategoryTableViewCell
+//
+//        let gp = guidePostArray[indexPath.row] as NSDictionary
+//        cell.categoryLabel.text = gp["sectionTitle"] as? String
+//        cell.collectionCellData = gp["collectionData"] as? NSArray
+//        cell.collectionView.reloadData()
+//
+//        return cell
+//    }
     
     
     func guidePostAdded() {
@@ -82,9 +108,11 @@ class origHomeViewController: UITableViewController,UINavigationControllerDelega
     
     func refreshGuidePostDataArray(){
         guidePostArray = DataModelController.sharedInstance.fetchGuidePostsForCollectionView() as! [(NSDictionary)]
-        dispatch_async(dispatch_get_main_queue() , { () -> Void in
+       DispatchQueue.main.async {
             self.tableView.reloadData()
-        })
+        }
+        
+        
 
     }
     

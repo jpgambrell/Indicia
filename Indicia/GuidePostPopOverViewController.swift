@@ -30,53 +30,81 @@ class GuidePostPopOverViewController: UIViewController, UINavigationControllerDe
     }
     
     @IBAction func doneButtonPressed(sender: AnyObject) {
-        let imageName = "\(NSDate().timeIntervalSince1970).png"
-        let documentsPath = NSSearchPathForDirectoriesInDomains(.DocumentDirectory, .UserDomainMask, true)[0]
-        let destinationPath = documentsPath.stringByAppendingPathComponent(imageName)
-        UIImageJPEGRepresentation(imageView.image!,1.0)!.writeToFile(destinationPath, atomically: true)
+       
+      //  let documentsPath = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)[0]
+      //  let destinationPath = documentsPath.stringByAppendingPathComponent(path: imageName)
+        
+         let imageName = "\(NSDate().timeIntervalSince1970).png"
+        if let data = imageView.image!.pngData() {
+            
+               let filename = getDocumentsDirectory().appendingPathComponent(imageName)
+               
+               try? data.write(to: filename)
+           }
+        
+        
+        //UIImageJPEGRepresentation(imageView.image!,1.0)!.writeToFile(destinationPath, atomically: true)
         
         let gpStruct = GuidePostStruct(imageName: imageName, type: gpTypeSegment.selectedSegmentIndex, tags: gpTagTextField.text!, location: currentLocation, date: NSDate())
         
-        if DataModelController.sharedInstance.insertGuidepost(gpStruct) == CDResponse.Success {
+        if DataModelController.sharedInstance.insertGuidepost(inGP: gpStruct) == CDResponse.Success {
             delegate!.guidePostAdded()
-            self.dismissViewControllerAnimated(
-                true, completion: nil)
+            self.dismiss(
+                animated: true, completion: nil)
         } else {
-            let alert = UIAlertController(title: "Something went wrong", message: "Unable to Save", preferredStyle: .Alert)
-            self.presentViewController(alert, animated: true, completion: nil)
+            let alert = UIAlertController(title: "Something went wrong", message: "Unable to Save", preferredStyle: .alert)
+            self.present(alert, animated: true, completion: nil)
         }
         
     }
     
+    func getDocumentsDirectory() -> URL {
+        let paths = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)
+        return paths[0]
+    }
     
-    func presentImagePickerController(sourceType: UIImagePickerControllerSourceType){
+    
+    func presentImagePickerController(sourceType: UIImagePickerController.SourceType){
         
         imagePicker.delegate = self;
         imagePicker.sourceType  = sourceType
         
-        presentViewController(imagePicker, animated: true, completion: nil)
+        present(imagePicker, animated: true, completion: nil)
         
     }
     
     @IBAction func takePhotoPressed(sender: AnyObject) {
-        presentImagePickerController(.Camera)
+        presentImagePickerController(sourceType: .camera)
     }
     
     @IBAction func choosePhotoButtonPressed(sender: AnyObject) {
-        presentImagePickerController(.PhotoLibrary)
+        presentImagePickerController(sourceType: .photoLibrary)
     }
     @IBAction func cancelButtonPressed(sender: AnyObject) {
-        self.dismissViewControllerAnimated(true, completion: nil)
+        self.dismiss(animated: true, completion: nil)
     }
     
-    func imagePickerController(picker: UIImagePickerController, didFinishPickingImage image: UIImage!, editingInfo: [NSObject : AnyObject]!) {
-        imageView.image = image
-        imagePicker.dismissViewControllerAnimated(true, completion: nil)
+    
+  func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
+        if let image = info[.originalImage] as? UIImage {
+            self.imageView.image = image
+        }
+
+        self.imagePicker.dismiss(animated: true, completion: nil)
     }
+    
+//    func imagePickerController(picker: UIImagePickerController, didFinishPickingImage image: UIImage!, editingInfo: [NSObject : AnyObject]!) {
+//       
+//         DispatchQueue.main.async {
+//            self.imageView.image = image
+//            self.imagePicker.dismiss(animated: true, completion: nil)
+//               }
+//       
+//    }
     
     // MARK: - CLLocationManagerDelegate
     
-    func locationManager(manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         if let location = locations.first {
             print("Current location: \(location)")
             currentLocation = location
@@ -85,9 +113,12 @@ class GuidePostPopOverViewController: UIViewController, UINavigationControllerDe
         }
     }
     
-    func locationManager(manager: CLLocationManager, didFailWithError error: NSError) {
+    
+    
+    func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
         print("Error finding location: \(error.localizedDescription)")
     }
+    
 
 }
 
